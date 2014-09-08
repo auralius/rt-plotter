@@ -38,8 +38,7 @@ void RTPlotter::GrabData(int ch)
 	
 	for (int i = 0; i < m_nchannel; i++) {
 		m_data_to_plot[i].push_back((double)shm[i]);
-		if (m_data_to_plot[i].size() > m_plot_buffer_size)
-			m_data_to_plot[i].erase(m_data_to_plot[i].begin());
+		m_data_to_plot[i].erase(m_data_to_plot[i].begin());
 	}
 	usleep(m_plot_delay);
 		
