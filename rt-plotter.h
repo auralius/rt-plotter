@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <libconfig.h>
+#include <regex>
 
 
 class RTPlotter : public mglDraw

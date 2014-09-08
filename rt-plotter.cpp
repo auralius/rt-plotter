@@ -34,7 +34,7 @@ RTPlotter::~RTPlotter()
 
 void RTPlotter::GrabData(int ch)
 {
-	double *shm = m_shm_access->GetShmAddr();
+	double *shm = (double *) m_shm_access->GetShmAddr();
 	
 	for (int i = 0; i < m_nchannel; i++) {
 		m_data_to_plot[i].push_back((double)shm[i]);
@@ -100,7 +100,7 @@ void RTPlotter::SetGraphic(mglFLTK* gr)
 void RTPlotter::RunTh()
 {
 	pthread_t plotter_thread_id;
-	pthread_create(&plotter_thread_id, NULL, plotter_thread, (void *) this);
+	pthread_create(&plotter_thread_id, NULL, (void * (*) (void *)) plotter_thread, (void *) this);
 }
 
 void RTPlotter::Stop()

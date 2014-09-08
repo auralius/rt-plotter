@@ -6,4 +6,4 @@ install(TARGETS rt-plotter RUNTIME DESTINATION bin)
 
 target_link_libraries(rt-plotter fltk config mgl-wnd mgl pthread)
 
-set (CMAKE_CXX_FLAGS -fpermissive )
+set (CMAKE_CXX_FLAGS -std=c++11 )
