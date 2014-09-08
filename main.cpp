@@ -8,7 +8,7 @@
 int main(int argc,char **argv)
 {
 	RTPlotter rt_plotter;	
-    mglFLTK gr(&rt_plotter,"MathGL examples");
+    mglFLTK gr(&rt_plotter,"rt-plotter");
 	
 	rt_plotter.SetGraphic(&gr);
 	

@@ -7,8 +7,8 @@ Current Build Directory Index=0
 ProjectRootRelative=./
 
 [CMake][CMake Build Directory 0]
-Build Directory Path=file:///home/auralius/projects/rt-plotter/build
-Build Type=Debug
+Build Directory Path=file:///home/auralius/local-dev/rt-plotter/build
+Build Type=
 CMake Binary=file:///usr/bin/cmake
 Environment Profile=
 Extra Arguments=
