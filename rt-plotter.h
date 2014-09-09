@@ -44,7 +44,7 @@ private:
 	int m_shm_size;
 	int m_plot_buffer_size;
 	int m_plot_delay;
-	std::vector<char> m_colors;
+	std::vector<const char *> m_colors;
 	std::vector<int> m_channels_to_plot;
 };
 

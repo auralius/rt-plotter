@@ -30,16 +30,24 @@ RTPlotter::~RTPlotter()
 	printf("cleaning up...\n");
 	m_is_running = false;
 	delete m_shm_access;
+	delete [] m_data_to_plot;
+	
+	for (int i = 0; i < m_colors.size(); i++){
+		delete [] m_colors.at(i);
+	}
+	printf("done...\n");
 }
 
 void RTPlotter::GrabData(int ch)
 {
-	double *shm = (double *) m_shm_access->GetShmAddr();
+	void *shm = m_shm_access->GetShmAddr();
+
 	
 	for (int i = 0; i < m_nchannel; i++) {
-		m_data_to_plot[i].push_back((double)shm[i]);
+		m_data_to_plot[i].push_back(*((double *) shm + i));
 		m_data_to_plot[i].erase(m_data_to_plot[i].begin());
 	}
+	
 	usleep(m_plot_delay);
 		
 	m_gr->Update(); // update window
@@ -80,8 +88,11 @@ void RTPlotter::LoadConfig(char* fn)
 		 m_channels_to_plot.push_back(atoi(sub_data.c_str()));		 
 	}
 	
-	config_lookup_string(&cfg, "colors", &string_tmp);
+	free((void *) string_tmp);
 	
+	// Parse the colors
+	config_lookup_string(&cfg, "colors", &string_tmp);
+		
 	data = string_tmp;
 	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	start = 0;
@@ -91,29 +102,34 @@ void RTPlotter::LoadConfig(char* fn)
 			 end = data.length();
 		 std::string  sub_data = data.substr(start, end);
 		 start = end + 1;
-		 m_colors.push_back(sub_data.c_str()[0]);		
+		 char* color = new char[sub_data.length()];
+		 strcpy(color, sub_data.c_str());
+		 m_colors.push_back(color);		
 	}
+	
+	free((void *) string_tmp);
 }
 
 
 int RTPlotter::Draw(mglGraph* gr)
 {
-	gr->Clf();
+	//gr->Clf();
 	
 	gr->SetRanges(0, m_plot_buffer_size); 
 	gr->SetOrigin(0, 0);;
 	gr->SetFontSize(3);
 	gr->Axis();
-	
-	int ch_to_plot = 0;
+		
 	mglData dat(m_plot_buffer_size);
-	for (int i = 0; i < m_plot_buffer_size; i++) {
-		dat.a[i] = m_data_to_plot[ch_to_plot].at(i);
-	}
-
-	gr->Plot(dat,"b");
 	
-	
+	for (int i = 0; i < m_channels_to_plot.size(); i++) {
+		int ch_to_plot = m_channels_to_plot.at(i);
+		for (int j = 0; j < m_plot_buffer_size; j++) {
+			dat.a[j] = m_data_to_plot[ch_to_plot].at(j);			
+		}
+		gr->Plot(dat, m_colors.at(i));
+	}	
+			
 	return 0;
 }
 
