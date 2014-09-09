@@ -82,16 +82,16 @@ void RTPlotter::LoadConfig(char* fn)
 	
 	config_lookup_string(&cfg, "colors", &string_tmp);
 	
-	std::string  data(string_tmp);
+	data = string_tmp;
 	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
-	std::size_t start = 0;
+	start = 0;
 	while (start < data.length()){
 		 std::size_t end = data.find("+", start);
 		 if (end == -1) // not found
 			 end = data.length();
 		 std::string  sub_data = data.substr(start, end);
 		 start = end + 1;
-		 m_colors.push_back(atoi(sub_data.c_str()));
+		 m_colors.push_back(sub_data.c_str()[0]);		
 	}
 }
 
