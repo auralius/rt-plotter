@@ -7,7 +7,10 @@
 
 #include <vector>
 #include <libconfig.h>
-#include <regex>
+#include <string>
+#include <boost/regex.hpp>
+
+using namespace std;
 
 
 class RTPlotter : public mglDraw
@@ -41,10 +44,8 @@ private:
 	int m_shm_size;
 	int m_plot_buffer_size;
 	int m_plot_delay;
-	char *m_colors;
-	int *channels_to_plot;
-
-	
+	std::vector<char> m_colors;
+	std::vector<int> m_channels_to_plot;
 };
 
 #endif
