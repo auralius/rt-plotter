@@ -38,7 +38,7 @@ RTPlotter::~RTPlotter()
 	printf("done...\n");
 }
 
-void RTPlotter::GrabData(int ch)
+void RTPlotter::GrabData()
 {
 	void *shm = m_shm_access->GetShmAddr();
 
@@ -158,7 +158,7 @@ void RTPlotter::plotter_thread(void *param)
 void RTPlotter::plotter_thread_worker()
 {
 	while (m_is_running)
-		GrabData(0);
+		GrabData();
 }
 
 

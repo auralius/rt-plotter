@@ -28,7 +28,7 @@ public:
 private:
 	void LoadConfig(char *fn);
 	int Draw(mglGraph *gr);
-	void GrabData(int ch);
+	void GrabData();
 	
 	static void plotter_thread(void *param);
 	void plotter_thread_worker();
