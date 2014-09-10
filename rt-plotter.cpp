@@ -83,7 +83,7 @@ void RTPlotter::LoadConfig(char* fn)
 		 std::size_t end = data.find("+", start);
 		 if (end == -1) // not found
 			 end = data.length();
-		 std::string  sub_data = data.substr(start, end);
+		 std::string  sub_data = data.substr(start, end - start);
 		 start = end + 1;
 		 m_channels_to_plot.push_back(atoi(sub_data.c_str()));		 
 	}
@@ -100,7 +100,8 @@ void RTPlotter::LoadConfig(char* fn)
 		 std::size_t end = data.find("+", start);
 		 if (end == -1) // not found
 			 end = data.length();
-		 std::string  sub_data = data.substr(start, end);
+		 std::string  sub_data = data.substr(start, end - start);
+		 printf("%s\n", sub_data.c_str());
 		 start = end + 1;
 		 char* color = new char[sub_data.length()];
 		 strcpy(color, sub_data.c_str());
