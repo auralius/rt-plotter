@@ -80,7 +80,7 @@ void RTPlotter::LoadConfig(char* fn)
 	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	std::size_t start = 0;
 	while (start < data.length()){
-		 std::size_t end = data.find("+", start);
+		 std::size_t end = data.find(";", start);
 		 if (end == -1) // not found
 			 end = data.length();
 		 std::string  sub_data = data.substr(start, end - start);
@@ -97,7 +97,7 @@ void RTPlotter::LoadConfig(char* fn)
 	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	start = 0;
 	while (start < data.length()){
-		 std::size_t end = data.find("+", start);
+		 std::size_t end = data.find(";", start);
 		 if (end == -1) // not found
 			 end = data.length();
 		 std::string  sub_data = data.substr(start, end - start);
