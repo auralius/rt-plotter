@@ -2,7 +2,7 @@ rt-plotter
 ==========
 
 2D realtime plot of the shared memory content.
-Ploting is done udsing point-by-point approach.
+Plotting is done using point-by-point approach.
 
 Dependencies:
 - MathGL (http://sourceforge.net/projects/mathgl/)
@@ -16,7 +16,7 @@ Concept:
 ```
 ¦-----------------¦            ¦------------¦
 ¦Your application ¦            ¦ rt-plotter ¦
-¦   (wrting)      ¦            ¦ (reading)  |
+¦   (writing)     ¦            ¦ (reading)  |
 ¦-----------------¦------------¦------------¦
 ¦              SHARED MEMORY                ¦
 ¦-------------------------------------------¦
