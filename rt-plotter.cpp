@@ -87,9 +87,7 @@ void RTPlotter::LoadConfig(char* fn)
 		 start = end + 1;
 		 m_channels_to_plot.push_back(atoi(sub_data.c_str()));		 
 	}
-	
-	free((void *) string_tmp);
-	
+
 	// Parse the colors
 	config_lookup_string(&cfg, "colors", &string_tmp);
 		
@@ -107,7 +105,7 @@ void RTPlotter::LoadConfig(char* fn)
 		 m_colors.push_back(color);		
 	}
 	
-	free((void *) string_tmp);
+	config_destroy(&cfg);
 }
 
 
