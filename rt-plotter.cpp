@@ -101,7 +101,6 @@ void RTPlotter::LoadConfig(char* fn)
 		 if (end == -1) // not found
 			 end = data.length();
 		 std::string  sub_data = data.substr(start, end - start);
-		 printf("%s\n", sub_data.c_str());
 		 start = end + 1;
 		 char* color = new char[sub_data.length()];
 		 strcpy(color, sub_data.c_str());
