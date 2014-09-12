@@ -47,6 +47,8 @@ private:
 	std::vector<const char *> m_colors;
 	std::vector<int> m_channels_to_plot;
 	std::vector<const char *> m_legends;
+	
+	char *m_title;
 };
 
 #endif

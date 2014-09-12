@@ -32,6 +32,7 @@ RTPlotter::~RTPlotter()
 	
 	delete m_shm_access;
 	delete [] m_data_to_plot;
+	delete [] m_title; 
 	
 	for (int i = 0; i < m_colors.size(); i++){
 		delete [] m_colors.at(i);
@@ -80,6 +81,11 @@ void RTPlotter::LoadConfig(const char* fn)
     config_lookup_int(&cfg, "plot_delay", &m_plot_delay);
     
 	const char *string_tmp;
+	
+	config_lookup_string(&cfg, "title", &string_tmp);
+	m_title = new char[strlen(string_tmp)];
+	strcpy(m_title, string_tmp);
+	
 	config_lookup_string(&cfg, "channels_to_plot", &string_tmp);
 	
 	std::string  data(string_tmp);
@@ -138,8 +144,9 @@ int RTPlotter::Draw(mglGraph* gr)
 	
 	gr->SetRanges(0, m_plot_buffer_size); 
 	gr->SetOrigin(0, 0);;
-	gr->SetFontSize(3);
-	gr->Axis();
+	gr->SetFontSize(2.5);
+	gr->Box();
+	gr->Title(m_title);
 	
 	for (int i = 0; i < m_channels_to_plot.size(); i++) 
 		gr->AddLegend(m_legends.at(i), m_colors.at(i));
@@ -156,7 +163,7 @@ int RTPlotter::Draw(mglGraph* gr)
 	}	
 	
 	gr->Legend();
-			
+				
 	return 0;
 }
 
