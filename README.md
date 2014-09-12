@@ -21,5 +21,12 @@ Concept:
 ¦              SHARED MEMORY                ¦
 ¦-------------------------------------------¦
 ```
+How to install:
+- mkdir build
+- cd build
+- cmake ..
+- make
+
+
 Contact:
 manurunga@yandex.com
