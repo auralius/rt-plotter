@@ -29,12 +29,18 @@ RTPlotter::~RTPlotter()
 {
 	printf("cleaning up...\n");
 	m_is_running = false;
+	
 	delete m_shm_access;
 	delete [] m_data_to_plot;
 	
 	for (int i = 0; i < m_colors.size(); i++){
 		delete [] m_colors.at(i);
 	}
+	
+	for (int i = 0; i < m_legends.size(); i++){
+		delete [] m_legends.at(i);
+	}
+	
 	printf("done...\n");
 }
 
