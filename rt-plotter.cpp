@@ -50,15 +50,12 @@ void RTPlotter::GrabData()
 {
 	void *shm = m_shm_access->GetShmAddr();
 
-	
 	for (int i = 0; i < m_nchannel; i++) {
 		m_data_to_plot[i].push_back(*((double *) shm + i));
-		m_data_to_plot[i].erase(m_data_to_plot[i].begin());
+		return;
 	}
-	
-	usleep(m_plot_delay);
-		
-	m_gr->Update(); // update window
+	else	
+		m_gr->Update(); // update window
 }
 
 void RTPlotter::LoadConfig(const char* fn)
