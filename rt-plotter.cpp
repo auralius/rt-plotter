@@ -29,6 +29,7 @@ RTPlotter::~RTPlotter()
 {
 	printf("cleaning up...\n");
 	m_is_running = false;
+	m_plot_buffer_size = 100;
 	
 	delete m_shm_access;
 	delete [] m_data_to_plot;
@@ -146,7 +147,7 @@ int RTPlotter::Draw(mglGraph* gr)
 	gr->SetOrigin(0, 0);;
 	gr->SetFontSize(2.5);
 	gr->Box();
-	gr->Title(m_title);
+	gr->Axis();
 	
 	for (int i = 0; i < m_channels_to_plot.size(); i++) 
 		gr->AddLegend(m_legends.at(i), m_colors.at(i));
@@ -163,7 +164,8 @@ int RTPlotter::Draw(mglGraph* gr)
 	}	
 	
 	gr->Legend();
-				
+	gr->Title(m_title);
+	
 	return 0;
 }
 
