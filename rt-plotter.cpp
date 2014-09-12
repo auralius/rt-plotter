@@ -52,6 +52,14 @@ void RTPlotter::GrabData()
 
 	for (int i = 0; i < m_nchannel; i++) {
 		m_data_to_plot[i].push_back(*((double *) shm + i));
+		m_data_to_plot[i].erase(m_data_to_plot[i].begin());
+	}
+	
+	usleep(m_plot_delay);
+	
+	if (shm == NULL) {
+		m_is_running = false; // stop, error happens
+		printf("aborting...\n");
 		return;
 	}
 	else	
