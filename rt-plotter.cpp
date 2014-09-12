@@ -2,12 +2,12 @@
 #include "rt-plotter.h"
 
 
-RTPlotter::RTPlotter()
+RTPlotter::RTPlotter(const char * config_fn)
 {
 	m_is_running = true;
 	
 	// Load the configurations
-	LoadConfig("./rt-plotter-config.cfg");
+	LoadConfig(config_fn);
 	
 	// Guess number of channel from the SHM_SIZE (double is 8 byte)
 	m_nchannel = m_shm_size / 8;
@@ -53,7 +53,7 @@ void RTPlotter::GrabData()
 	m_gr->Update(); // update window
 }
 
-void RTPlotter::LoadConfig(char* fn)
+void RTPlotter::LoadConfig(const char* fn)
 {
 	/*Initialization */
     config_t cfg;  
@@ -77,7 +77,7 @@ void RTPlotter::LoadConfig(char* fn)
 	config_lookup_string(&cfg, "channels_to_plot", &string_tmp);
 	
 	std::string  data(string_tmp);
-	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
+	//data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	std::size_t start = 0;
 	while (start < data.length()){
 		 std::size_t end = data.find(";", start);
@@ -92,7 +92,7 @@ void RTPlotter::LoadConfig(char* fn)
 	config_lookup_string(&cfg, "colors", &string_tmp);
 		
 	data = string_tmp;
-	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
+	//data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	start = 0;
 	while (start < data.length()){
 		 std::size_t end = data.find(";", start);

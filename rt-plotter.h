@@ -8,7 +8,6 @@
 #include <vector>
 #include <libconfig.h>
 #include <string>
-#include <boost/regex.hpp>
 
 using namespace std;
 
@@ -18,7 +17,7 @@ class RTPlotter : public mglDraw
 
 
 public:
-	RTPlotter();
+	RTPlotter(const char * config_fn);
 	~RTPlotter();
 		
 	void SetGraphic(mglFLTK *gr);
@@ -26,7 +25,7 @@ public:
 	void Stop();
 	
 private:
-	void LoadConfig(char *fn);
+	void LoadConfig(const char *fn);
 	int Draw(mglGraph *gr);
 	void GrabData();
 	

@@ -7,7 +7,13 @@
 
 int main(int argc,char **argv)
 {
-	RTPlotter rt_plotter;	
+	const char * fn = argv[1];
+	if (fn == NULL) {
+		printf("usage : %s [configuration file]\n", argv[0]);
+		exit(1);
+	}
+	
+	RTPlotter rt_plotter(fn);	
     mglFLTK gr(&rt_plotter,"rt-plotter");
 	
 	rt_plotter.SetGraphic(&gr);
