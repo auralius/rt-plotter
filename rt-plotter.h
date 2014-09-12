@@ -8,6 +8,7 @@
 #include <vector>
 #include <libconfig.h>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -45,6 +46,7 @@ private:
 	int m_plot_delay;
 	std::vector<const char *> m_colors;
 	std::vector<int> m_channels_to_plot;
+	std::vector<const char *> m_legends;
 };
 
 #endif

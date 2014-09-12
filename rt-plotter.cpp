@@ -77,7 +77,7 @@ void RTPlotter::LoadConfig(const char* fn)
 	config_lookup_string(&cfg, "channels_to_plot", &string_tmp);
 	
 	std::string  data(string_tmp);
-	//data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
+	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	std::size_t start = 0;
 	while (start < data.length()){
 		 std::size_t end = data.find(";", start);
@@ -92,7 +92,7 @@ void RTPlotter::LoadConfig(const char* fn)
 	config_lookup_string(&cfg, "colors", &string_tmp);
 		
 	data = string_tmp;
-	//data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
+	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
 	start = 0;
 	while (start < data.length()){
 		 std::size_t end = data.find(";", start);
@@ -103,6 +103,23 @@ void RTPlotter::LoadConfig(const char* fn)
 		 char* color = new char[sub_data.length()];
 		 strcpy(color, sub_data.c_str());
 		 m_colors.push_back(color);		
+	}
+	
+	// Parse the legends
+	config_lookup_string(&cfg, "legends", &string_tmp);
+	data = string_tmp;
+	data.erase(std::remove_if( data.begin(), data.end(), ::isspace ), data.end());
+	start = 0;
+	while (start < data.length()){
+		 std::size_t end = data.find(";", start);
+		 if (end == -1) // not found
+			 end = data.length();
+		 std::string  sub_data = data.substr(start, end - start);
+		 start = end + 1;
+		 char* legend = new char[sub_data.length()];
+		 strcpy(legend, sub_data.c_str());
+		 m_legends.push_back(legend);	
+		 printf("%s\n", legend);
 	}
 	
 	config_destroy(&cfg);
@@ -117,6 +134,9 @@ int RTPlotter::Draw(mglGraph* gr)
 	gr->SetOrigin(0, 0);;
 	gr->SetFontSize(3);
 	gr->Axis();
+	
+	for (int i = 0; i < m_channels_to_plot.size(); i++) 
+		gr->AddLegend(m_legends.at(i), m_colors.at(i));
 		
 	mglData dat(m_plot_buffer_size);
 	
@@ -126,7 +146,10 @@ int RTPlotter::Draw(mglGraph* gr)
 			dat.a[j] = m_data_to_plot[ch_to_plot].at(j);			
 		}
 		gr->Plot(dat, m_colors.at(i));
+		
 	}	
+	
+	gr->Legend();
 			
 	return 0;
 }
