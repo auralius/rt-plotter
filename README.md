@@ -10,7 +10,7 @@ Dependencies:
 - libconfig (http://www.hyperrealm.com/libconfig/)
 - pthread (http://www.gnu.org/software/hurd/libpthread.html)
 
-Check on the repository: rt-plotter-test
+Check on the repository: rt-plotter-test (https://github.com/auralius/rt-plotter-test)
 
 Concept:
 ```
